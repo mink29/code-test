@@ -10,6 +10,13 @@ public class UpdateProductRequest {
     private String category;
     private String name;
 
+    /*
+    1. 문제 : 에러 발생 (cannot deserialize from object value (no delegate- or property-based creator))
+    2. 원인 : 코드 (default 생성자 부재->jakson 라이브러리는 default 생성자를 필요로 함)
+    3. 개선안 : default 생성자 추가
+ */
+    public UpdateProductRequest() {}
+
     public UpdateProductRequest(Long id) {
         this.id = id;
     }
