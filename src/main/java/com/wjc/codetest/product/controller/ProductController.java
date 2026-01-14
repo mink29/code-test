@@ -46,7 +46,13 @@ public class ProductController {
     @PostMapping(value = "/product/list")
     public ResponseEntity<ProductListResponse> getProductListByCategory(@RequestBody GetProductListRequest dto){
         Page<Product> productList = productService.getListByCategory(dto);
-        return ResponseEntity.ok(new ProductListResponse(productList.getContent(), productList.getTotalPages(), productList.getTotalElements(), productList.getNumber()));
+        /*
+            1. 문제 : 응답에 표시되는 페이지가 요청한 페이지 값보다 1 작음
+            2. 원인 : productService.getListByCategory(dto) 처리 시 PageRequest.of()가 페이지를 0부터 시작하는 것으로 보는 것을 해결하기 위해
+                     사용자의 요청 페이지 값에서 1을 뺀 값을 인자로 넘겼기 때문
+            3. 개선안 : 결과 페이지 값에 1을 더하여 응답함
+         */
+        return ResponseEntity.ok(new ProductListResponse(productList.getContent(), productList.getTotalPages(), productList.getTotalElements(), productList.getNumber()+1));
     }
 
     @GetMapping(value = "/product/category/list")
