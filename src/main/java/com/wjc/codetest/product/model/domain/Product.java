@@ -28,11 +28,16 @@ public class Product {
         this.name = name;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public String getName() {
-        return name;
-    }
+    /*
+        1. 문제 : 중복 코드
+        2. 원인 : 클래스의 @Getter와 get메서드가 중복됨
+        3. 개선안 : get메서드 삭제
+     */
+//    public String getCategory() {
+//        return category;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
 }
